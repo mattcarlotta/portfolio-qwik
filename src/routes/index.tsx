@@ -3,10 +3,10 @@ import { DocumentHead } from '@builder.io/qwik-city'
 import CardPreview from '../components/layout/CardPreview'
 import Orbits from '../components/layout/Orbits'
 import Section from '../components/layout/Section'
-import { Data } from '../routes/api/background'
+import type { BackgroundCards } from './api/background'
 
 export default component$(() => {
-  const res = useResource$<Data>(async () => {
+  const resourceData = useResource$<BackgroundCards>(async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/background`)
 
     if (!res.ok) {
@@ -15,7 +15,7 @@ export default component$(() => {
 
     const data = await res.json()
 
-    return { cards: data.cards }
+    return data.cards
   })
 
   return (
@@ -30,14 +30,14 @@ export default component$(() => {
         <Orbits />
       </Section>
       <Resource
-        value={res}
-        onRejected={(err) => <div>{String(err)}</div>}
-        onResolved={(res) => (
+        value={resourceData}
+        onRejected={(err) => <div>{String(err?.message)}</div>}
+        onResolved={(cards) => (
           <section
             className="mt-28 flex flex-wrap items-center justify-center"
             data-testid="home-page"
           >
-            {res?.cards.map(({ preview, slug, ...rest }) => (
+            {cards.map(({ preview, slug, ...rest }) => (
               <CardPreview
                 {...preview}
                 {...rest}

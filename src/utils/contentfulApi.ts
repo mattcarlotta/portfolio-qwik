@@ -7,15 +7,15 @@ import {
 
 function fetchGraphQL(query: string, preview = false) {
   return fetch(
-    `${process.env.VITE_CONTENTFUL_BASE_URL}${process.env.VITE_CONTENTFUL_SPACE_ID}`,
+    `${process.env.CONTENTFUL_BASE_URL}${process.env.CONTENTFUL_SPACE_ID}`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${
           preview
-            ? process.env.VITE_CONTENTFUL_PREVIEW_ACCESS_TOKEN
-            : process.env.VITE_CONTENTFUL_ACCESS_TOKEN
+            ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+            : process.env.CONTENTFUL_ACCESS_TOKEN
         }`
       },
       body: JSON.stringify({ query })
@@ -39,7 +39,7 @@ export function getHomepageCards() {
 export function getBackground() {
   return fetchGraphQL(
     `query {
-      background(id: "${process.env.VITE_CONTENTFUL_BACKGROUND_ID}") {
+      background(id: "${process.env.CONTENTFUL_BACKGROUND_ID}") {
         ${BACKGROUND}
       }
     }
