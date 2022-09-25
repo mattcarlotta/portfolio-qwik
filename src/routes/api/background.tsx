@@ -1,6 +1,6 @@
 import { RequestHandler } from '@builder.io/qwik-city'
-import type { CONTENTFUL_PAGE_CARD } from '../../../types'
-import { getHomepageCards } from '../../../utils/contentfulApi'
+import type { CONTENTFUL_PAGE_CARD } from '../../types'
+import { getHomepageCards } from '../../utils/contentfulApi'
 
 export type BackgroundCards = Array<CONTENTFUL_PAGE_CARD>
 
@@ -20,6 +20,6 @@ export const onGet: RequestHandler<Data> = async ({ response }) => {
   }
 
   return {
-    cards
+    cards: []
   }
 }

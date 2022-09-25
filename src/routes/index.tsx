@@ -1,6 +1,6 @@
 import { component$, Resource, useResource$ } from '@builder.io/qwik'
 import { DocumentHead } from '@builder.io/qwik-city'
-import CardPreview from '~/components/layout/CardPreview'
+import CardPreview from '../components/layout/CardPreview'
 import Orbits from '../components/layout/Orbits'
 import Section from '../components/layout/Section'
 import { Data } from '../routes/api/background'

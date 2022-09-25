@@ -1,5 +1,5 @@
 import { Link as QwikLink } from '@builder.io/qwik-city'
-import OutsideLink from '~/components/navigation/OutsideLink'
+import OutsideLink from '../../../components/navigation/OutsideLink'
 import CodeIcon from '../../../icons/CodeIcon'
 import DemoIcon from '../../../icons/DemoIcon'
 import StatusIcon from '../../../icons/StatusIcon'
