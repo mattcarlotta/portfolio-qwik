@@ -1,0 +1,29 @@
+@keyframes grow {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 100px;
+  }
+}
+
+.bar {
+  @apply absolute hidden w-0;
+  height: 2px;
+  background: #005193;
+}
+
+.topBar {
+  top: 4px;
+  animation: grow 1.5s linear infinite;
+}
+
+.middleBar {
+  top: 8px;
+  animation: grow 1.65s linear infinite;
+}
+
+.bottomBar {
+  top: 12px;
+  animation: grow 1.75s linear infinite;
+}
