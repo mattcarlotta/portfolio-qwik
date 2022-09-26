@@ -15,7 +15,7 @@ export default component$(() => {
 
     const data = await res.json()
 
-    return data.cards
+    return data
   })
 
   return (

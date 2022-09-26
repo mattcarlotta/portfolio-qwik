@@ -20,7 +20,7 @@ const app = express()
 
 // Static asset handlers
 // https://expressjs.com/en/starter/static-files.html
-app.use(`/build`, express.static(buildDir, { immutable: true, maxAge: '1y' }))
+app.use('/build', express.static(buildDir, { immutable: true, maxAge: '1y' }))
 app.use(express.static(distDir, { redirect: false }))
 
 // Use Qwik City's page and endpoint request handler
@@ -30,7 +30,7 @@ app.use(router)
 app.use(notFound)
 
 // Start the express server
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   /* eslint-disable */
-  console.log(`http://localhost:3000/`)
+  console.log(process.env.VITE_HOST)
 })
