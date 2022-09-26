@@ -18,7 +18,6 @@ export const onGet: RequestHandler<ProjectCard> = async ({
 
   if (!res.ok) {
     response.status = 404
-    // throw response.redirect('/not-found')
     return null
   }
 
@@ -34,22 +33,25 @@ export default component$(() => {
     <>
       <Resource
         value={resource}
-        // onPending={() => <div>Loading...</div>}
-        // onError={() => <div>Error</div>}
-        onRejected={() => <NotFound />}
         onResolved={(data) => (
-          <Section>
-            <h1
-              className="break-words font-stylized text-2xl leading-none md:text-3xl"
-              data-testid="category"
-            >
-              <ProjectsIcon className="mb-2 mr-2.5 text-3xl sm:mb-0" />
-              projects
-            </h1>
-            <p className="mx-auto mt-2 max-w-xl p-2 font-plain text-lg text-primary-25">
-              {JSON.stringify(data, null, 2)}
-            </p>
-          </Section>
+          <>
+            {!data ? (
+              <NotFound />
+            ) : (
+              <Section>
+                <h1
+                  className="break-words font-stylized text-2xl leading-none md:text-3xl"
+                  data-testid="category"
+                >
+                  <ProjectsIcon className="mb-2 mr-2.5 text-3xl sm:mb-0" />
+                  projects
+                </h1>
+                <p className="mx-auto mt-2 max-w-xl p-2 font-plain text-lg text-primary-25">
+                  {JSON.stringify(data, null, 2)}
+                </p>
+              </Section>
+            )}
+          </>
         )}
       />
     </>
