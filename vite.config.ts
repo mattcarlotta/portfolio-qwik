@@ -8,6 +8,9 @@ export default defineConfig(() => {
   env.config()
 
   return {
-    plugins: [qwikCity(), qwikVite(), tsconfigPaths()]
+    plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
+    server: {
+      port: 3000
+    }
   }
 })

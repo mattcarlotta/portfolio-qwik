@@ -17,6 +17,9 @@ import Root from './root'
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {
     manifest,
-    ...opts
+    ...opts,
+    containerAttributes: {
+      lang: 'en'
+    }
   })
 }

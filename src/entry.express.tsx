@@ -1,4 +1,5 @@
 import { qwikCity } from '@builder.io/qwik-city/middleware/node'
+import compression from 'compression'
 import env from 'dotenv'
 import express from 'express'
 import { join } from 'path'
@@ -17,6 +18,7 @@ const { router, notFound } = qwikCity(render)
 // Create the express server
 // https://expressjs.com/
 const app = express()
+app.use(compression())
 
 // Static asset handlers
 // https://expressjs.com/en/starter/static-files.html
