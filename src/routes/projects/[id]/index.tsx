@@ -58,9 +58,7 @@ export default component$(() => {
                   </ul>
                 </section>
                 {project?.snapshotsCollection?.items?.length ?? 0 > 0 ? (
-                  <GalleryView
-                    snapshots={project!.snapshotsCollection!.items}
-                  />
+                  <GalleryView snapshots={project.snapshotsCollection!.items} />
                 ) : null}
               </div>
             </Panel>
