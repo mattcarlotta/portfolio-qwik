@@ -24,25 +24,30 @@ export default component$(() => {
       onRejected={() => <NotFound />}
       onResolved={(project) => (
         <div>
-          <Project>
-            <PanelTitle id="title">{project?.title}</PanelTitle>
-            <Panel>
-              <div className="py-2.5 px-5 tracking-wide">
-                <section>
-                  <DetailHeadline id="details">Details:</DetailHeadline>
-                  {project ? <FileDetails {...project} /> : null}
-                </section>
-                <section>
-                  <DetailHeadline id="description">Description:</DetailHeadline>
-                  <div className="mt-2 px-4 font-plain text-xl tracking-wide">
-                    <ContentfulRichText json={project?.description?.json} />
-                  </div>
-                </section>
-                <section>
-                  <DetailHeadline id="tech">Tech Specs:</DetailHeadline>
-                  <ul className="list-none p-2">
-                    {project?.tech
-                      ? project.tech.map((item, idx) => (
+          {!project ? (
+            <NotFound />
+          ) : (
+            <>
+              <Project>
+                <PanelTitle id="title">{project.title}</PanelTitle>
+                <Panel>
+                  <div className="py-2.5 px-5 tracking-wide">
+                    <section>
+                      <DetailHeadline id="details">Details:</DetailHeadline>
+                      <FileDetails {...project} />
+                    </section>
+                    <section>
+                      <DetailHeadline id="description">
+                        Description:
+                      </DetailHeadline>
+                      <div className="mt-2 px-4 font-plain text-xl tracking-wide">
+                        <ContentfulRichText json={project?.description?.json} />
+                      </div>
+                    </section>
+                    <section>
+                      <DetailHeadline id="tech">Tech Specs:</DetailHeadline>
+                      <ul className="list-none p-2">
+                        {project.tech.map((item, idx) => (
                           <li
                             className={clsx(
                               'px-2 font-plain text-xl',
@@ -53,17 +58,20 @@ export default component$(() => {
                             <ProjectsIcon className="mr-3 align-middle" />
                             {item}
                           </li>
-                        ))
-                      : null}
-                  </ul>
-                </section>
-                {project?.snapshotsCollection?.items?.length ?? 0 > 0 ? (
-                  <GalleryView snapshots={project.snapshotsCollection!.items} />
-                ) : null}
-              </div>
-            </Panel>
-          </Project>
-          <GoBack href="/projects" title="projects" />
+                        ))}
+                      </ul>
+                    </section>
+                    {project.snapshotsCollection.items.length > 0 ? (
+                      <GalleryView
+                        snapshots={project.snapshotsCollection!.items}
+                      />
+                    ) : null}
+                  </div>
+                </Panel>
+              </Project>
+              <GoBack href="/projects" title="projects" />
+            </>
+          )}
         </div>
       )}
     />
