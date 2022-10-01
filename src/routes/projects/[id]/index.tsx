@@ -1,9 +1,5 @@
 import { component$, Resource } from '@builder.io/qwik'
-import {
-  DocumentHead,
-  RequestHandler,
-  useEndpoint
-} from '@builder.io/qwik-city'
+import { useEndpoint } from '@builder.io/qwik-city'
 import ContentfulRichText from '../../../components/layout/ContentfulRichText'
 import DetailHeadline from '../../../components/layout/DetailHeadline'
 import FileDetails from '../../../components/layout/FileDetails'
@@ -15,24 +11,9 @@ import Project from '../../../components/layout/Project'
 import GoBack from '../../../components/navigation/GoBack'
 import ProjectsIcon from '../../../icons/ProjectsIcon'
 import clsx from '../../../utils/clsx'
-import concatTitle from '../../../utils/concatTitle'
-import { ProjectPage } from '../../api/projects/[id]'
+import { head, onGet } from '../../api/projects/[id]'
 
-export const onGet: RequestHandler<ProjectPage> = async ({
-  params,
-  response
-}) => {
-  const res = await fetch(`${process.env.VITE_API_URL}/projects/${params.id}`)
-
-  if (!res.ok) {
-    response.status = 404
-    return null
-  }
-
-  const data = await res.json()
-
-  return data
-}
+export { onGet, head }
 
 export default component$(() => {
   const resource = useEndpoint<typeof onGet>()
@@ -77,34 +58,16 @@ export default component$(() => {
                   </ul>
                 </section>
                 {project?.snapshotsCollection?.items?.length ?? 0 > 0 ? (
-                  <GalleryView snapshots={project.snapshotsCollection!.items} />
+                  <GalleryView
+                    snapshots={project!.snapshotsCollection!.items}
+                  />
                 ) : null}
               </div>
             </Panel>
           </Project>
-          <GoBack href="/projects/" title="projects" />
+          <GoBack href="/projects" title="projects" />
         </div>
       )}
     />
   )
 })
-
-export const head: DocumentHead<ProjectPage> = ({ data }) => {
-  return !data
-    ? {
-        title: 'Project Not Found | Matt Carlotta'
-      }
-    : {
-        meta: [
-          {
-            name: 'og:type',
-            content: 'article'
-          },
-          {
-            name: 'description',
-            content: data.seoDescription ?? ''
-          }
-        ],
-        title: concatTitle(data.title, data.seoDescription)
-      }
-}

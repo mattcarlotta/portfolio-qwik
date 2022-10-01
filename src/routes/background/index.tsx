@@ -4,6 +4,7 @@ import ContentfulRichText from '../../components/layout/ContentfulRichText'
 import DetailHeadline from '../../components/layout/DetailHeadline'
 import Image from '../../components/layout/Image'
 import Info from '../../components/layout/Info'
+import NotFound from '../../components/layout/NotFound'
 import Panel from '../../components/layout/Panel'
 import PanelTitle from '../../components/layout/PanelTitle'
 import Project from '../../components/layout/Project'
@@ -34,12 +35,10 @@ export default component$(() => {
     return data
   })
 
-  const iconClassName = 'mr-2 align-middle text-xl'
-
   return (
     <Resource
       value={resourceData}
-      onRejected={(err) => <div>{String(err?.message)}</div>}
+      onRejected={() => <NotFound />}
       onResolved={(background) => (
         <div>
           <Project>
@@ -60,19 +59,19 @@ export default component$(() => {
                   <DetailHeadline id="details">Details:</DetailHeadline>
                   <div className="pl-3 font-plain text-md">
                     <Info className="text-lime-500">
-                      <StatusIcon className={iconClassName} />
+                      <StatusIcon className="mr-2 align-middle text-xl" />
                       In Orbit Circa September 2016
                     </Info>
                     <Info>
-                      <LocationIcon className={iconClassName} />
+                      <LocationIcon className="mr-2 align-middle text-xl" />
                       {background.location}
                     </Info>
                     <Info>
-                      <RankIcon className={iconClassName} />
+                      <RankIcon className="mr-2 align-middle text-xl" />
                       {background.rank}
                     </Info>
                     <Info>
-                      <MailIcon className={iconClassName} />
+                      <MailIcon className="mr-2 align-middle text-xl" />
                       <OutsideLink
                         ariaLabel="Click to send me an email."
                         href="mailto:matt@mattcarlotta.com"
@@ -84,7 +83,7 @@ export default component$(() => {
                       <svg
                         stroke="currentColor"
                         fill="currentColor"
-                        className={iconClassName}
+                        className="mr-2 align-middle text-xl"
                         stroke-width="0"
                         viewBox="0 0 24 24"
                         height="1em"
@@ -122,7 +121,7 @@ export default component$(() => {
                       }
                     ].map(({ Icon, id, title, href }) => (
                       <Info>
-                        <Icon className={iconClassName} />
+                        <Icon className="mr-2 align-middle text-xl" />
                         <OutsideLink
                           ariaLabel={`Navigate to my ${id} page`}
                           href={href}

@@ -1,4 +1,4 @@
-import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
+import { BLOCKS, INLINES } from '@contentful/rich-text-types'
 import type {
   CommonNode,
   ContentfulNode,
@@ -10,6 +10,13 @@ import type {
   RenderNode,
   Text
 } from '../types'
+
+enum MARKS {
+  BOLD = 'bold',
+  ITALIC = 'italic',
+  UNDERLINE = 'underline',
+  CODE = 'code'
+}
 
 function isText(node: ContentfulNode): node is Text {
   return node.nodeType === 'text'

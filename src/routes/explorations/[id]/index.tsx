@@ -1,73 +1,65 @@
 import { component$, Resource } from '@builder.io/qwik'
-import {
-  DocumentHead,
-  RequestHandler,
-  useEndpoint
-} from '@builder.io/qwik-city'
+import { useEndpoint } from '@builder.io/qwik-city'
+import DetailHeadline from '../../../components/layout/DetailHeadline'
+import FileDetails from '../../../components/layout/FileDetails'
 import NotFound from '../../../components/layout/NotFound'
-import Section from '../../../components/layout/Section'
-import ProjectsIcon from '../../../icons/ProjectsIcon'
-import concatTitle from '../../../utils/concatTitle'
-import { ExplorationPage } from '../../api/explorations/[id]'
+import Panel from '../../../components/layout/Panel'
+import PanelTitle from '../../../components/layout/PanelTitle'
+import Project from '../../../components/layout/Project'
+import GoBack from '../../../components/navigation/GoBack'
+import { head, onGet } from '../../api/explorations/[id]'
 
-export const onGet: RequestHandler<ExplorationPage> = async ({
-  params,
-  response
-}) => {
-  const res = await fetch(
-    `${process.env.VITE_API_URL}/explorations/${params.id}`
-  )
-
-  if (!res.ok) {
-    response.status = 404
-    return null
-  }
-
-  const data = await res.json()
-
-  return data
-}
+export { onGet, head }
 
 export default component$(() => {
-  const resource = useEndpoint<typeof onGet>()
+  const resourceData = useEndpoint<typeof onGet>()
 
   return (
-    <>
-      <Resource
-        value={resource}
-        onRejected={() => <NotFound />}
-        onResolved={(data) => (
-          <Section>
-            <h1 className="break-words font-stylized text-2xl leading-none md:text-3xl">
-              <ProjectsIcon className="mb-2 mr-2.5 text-3xl sm:mb-0" />
-              projects
-            </h1>
-            <p className="mx-auto mt-2 max-w-xl p-2 font-plain text-lg text-primary-25">
-              {JSON.stringify(data, null, 2)}
-            </p>
-          </Section>
-        )}
-      />
-    </>
+    <Resource
+      value={resourceData}
+      onRejected={() => <NotFound />}
+      onResolved={(exploration) => (
+        <div>
+          <Project>
+            <PanelTitle id="exploration-title">{exploration?.title}</PanelTitle>
+            <Panel>
+              <div className="py-2.5 px-5 tracking-wide">
+                <DetailHeadline id="details">Details:</DetailHeadline>
+                <section>
+                  <FileDetails
+                    active
+                    location={`https://${exploration?.sandboxId}.csb.app/`}
+                    source={`https://codesandbox.io/s/${exploration?.sandboxId}`}
+                    status="In Orbit"
+                  />
+                </section>
+                <section>
+                  <DetailHeadline id="description">Description:</DetailHeadline>
+                  <div
+                    className="mt-2 px-4 font-plain text-xl tracking-wide"
+                    data-testid="exploration-description"
+                  >
+                    {exploration?.preview?.description}
+                  </div>
+                </section>
+                <section>
+                  <DetailHeadline id="playground">Playground:</DetailHeadline>
+                  <div className="my-5 px-2.5 font-plain">
+                    <iframe
+                      src={`https://codesandbox.io/embed/${exploration?.sandboxId}?codemirror=1&fontsize=14&hidenavigation=1&view=preview&hidedevtools=1&theme=dark`}
+                      title={exploration?.title}
+                      className="h-[31.25rem] w-full overflow-hidden rounded border-0"
+                      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+                      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+                    />
+                  </div>
+                </section>
+              </div>
+            </Panel>
+          </Project>
+          <GoBack href="/explorations" title="Explorations" />
+        </div>
+      )}
+    />
   )
 })
-
-export const head: DocumentHead<ExplorationPage> = ({ data }) => {
-  return !data
-    ? {
-        title: 'Exploration Not Found | Matt Carlotta'
-      }
-    : {
-        meta: [
-          {
-            name: 'og:type',
-            content: 'article'
-          },
-          {
-            name: 'description',
-            content: data.preview.description ?? ''
-          }
-        ],
-        title: concatTitle(data.title, data.preview.description)
-      }
-}

@@ -7,8 +7,7 @@ export type PageCards = Array<CONTENTFUL_PAGE_CARD>
 export const onGet: RequestHandler<PageCards> = async ({ response }) => {
   const res = await getHomepageCards()
 
-  const cards: Array<CONTENTFUL_PAGE_CARD> =
-    res.data?.homepageCardCollection?.items
+  const cards: PageCards = res.data?.homepageCardCollection?.items
 
   if (!cards) {
     response.status = 404

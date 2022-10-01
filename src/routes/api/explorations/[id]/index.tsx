@@ -1,8 +1,6 @@
-import { RequestHandler } from '@builder.io/qwik-city'
-import type {
-  CONTENTFUL_EXPLORATIONS_PAGE,
-  CONTENTFUL_PROJECTS_PAGE
-} from '../../../../types'
+import { DocumentHead, RequestHandler } from '@builder.io/qwik-city'
+import type { CONTENTFUL_EXPLORATIONS_PAGE } from '../../../../types'
+import concatTitle from '../../../../utils/concatTitle'
 import { getExplorationBySlug } from '../../../../utils/contentfulApi'
 
 export type ExplorationPage = CONTENTFUL_EXPLORATIONS_PAGE
@@ -13,7 +11,7 @@ export const onGet: RequestHandler<ExplorationPage> = async ({
 }) => {
   const res = await getExplorationBySlug(params.id)
 
-  const exploration: CONTENTFUL_PROJECTS_PAGE =
+  const exploration: ExplorationPage =
     res.data?.explorationsCollection?.items?.[0]
 
   if (!exploration) {
@@ -22,4 +20,24 @@ export const onGet: RequestHandler<ExplorationPage> = async ({
   }
 
   return exploration
+}
+
+export const head: DocumentHead<ExplorationPage> = ({ data }) => {
+  return !data
+    ? {
+        title: 'Exploration Not Found | Matt Carlotta'
+      }
+    : {
+        meta: [
+          {
+            name: 'og:type',
+            content: 'article'
+          },
+          {
+            name: 'description',
+            content: data.preview.description ?? ''
+          }
+        ],
+        title: concatTitle(data.title, data.preview.description)
+      }
 }
