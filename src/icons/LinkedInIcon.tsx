@@ -1,10 +1,9 @@
-export default function LinkedinIcon({ className }: { className: string }) {
+export default function LinkedInIcon({ className }: { className: string }) {
   return (
     <svg
       stroke="currentColor"
       fill="currentColor"
       stroke-width="0"
-      role="img"
       viewBox="0 0 24 24"
       className={className}
       height="1em"

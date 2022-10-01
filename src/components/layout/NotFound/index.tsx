@@ -8,9 +8,7 @@ export default function NotFound() {
   return (
     <div>
       <Project>
-        <PanelTitle id="file-not-found" data-testid="panel-title">
-          file not found
-        </PanelTitle>
+        <PanelTitle id="file-not-found">file not found</PanelTitle>
         <Panel>
           <div className="flex h-[44rem] flex-col items-center justify-center">
             <NotFoundIcon className="mb-10 text-ginormous" />

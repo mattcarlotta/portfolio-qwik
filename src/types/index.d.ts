@@ -9,7 +9,7 @@ import type {
   Text
 } from '@contentful/rich-text-types'
 // import type { ParsedUrlQuery } from 'querystring'
-// import type { ReactNode } from 'react'
+// import type { JSXChildren } from 'react'
 
 // export type {
 //   GetStaticPaths,
@@ -26,21 +26,22 @@ import type {
 //   KeyboardEvent,
 //   MouseEvent,
 //   ReactElement,
-//   ReactNode,
+//   JSXChildren,
 //   Ref
 // } from 'react'
 /// contentful types
+export { JSXChildren }
 export { Block, ContentfulNode, Document, Inline, Mark, Text }
 export type BlockOrInline = Block | Inline
 export type CommonNode = Text | BlockOrInline
 export interface RenderNode {
-  [k: string]: { (node: BlockOrInline, children: ReactNode): ReactNode }
+  [k: string]: { (node: BlockOrInline, children: JSXChildren): JSXChildren }
 }
 export interface RenderMark {
-  [k: string]: (text: ReactNode) => ReactNode
+  [k: string]: (text: JSXChildren) => JSXChildren
 }
 export interface RenderText {
-  (text: string): ReactNode
+  (text: string): JSXChildren
 }
 export interface Options {
   renderNode?: RenderNode
@@ -59,10 +60,6 @@ export type Children = {
 
 export type ChildrenWithId = Children & {
   id: string
-}
-
-export type DataTestId = {
-  dataTestId: string
 }
 
 export type Href = {

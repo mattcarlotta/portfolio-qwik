@@ -4,13 +4,21 @@ import {
   RequestHandler,
   useEndpoint
 } from '@builder.io/qwik-city'
+import ContentfulRichText from '../../../components/layout/ContentfulRichText'
+import DetailHeadline from '../../../components/layout/DetailHeadline'
+import FileDetails from '../../../components/layout/FileDetails'
+import GalleryView from '../../../components/layout/GalleryView'
 import NotFound from '../../../components/layout/NotFound'
-import Section from '../../../components/layout/Section'
+import Panel from '../../../components/layout/Panel'
+import PanelTitle from '../../../components/layout/PanelTitle'
+import Project from '../../../components/layout/Project'
+import GoBack from '../../../components/navigation/GoBack'
 import ProjectsIcon from '../../../icons/ProjectsIcon'
+import clsx from '../../../utils/clsx'
 import concatTitle from '../../../utils/concatTitle'
-import { ProjectCard } from '../../api/projects/[id]'
+import { ProjectPage } from '../../api/projects/[id]'
 
-export const onGet: RequestHandler<ProjectCard> = async ({
+export const onGet: RequestHandler<ProjectPage> = async ({
   params,
   response
 }) => {
@@ -30,30 +38,58 @@ export default component$(() => {
   const resource = useEndpoint<typeof onGet>()
 
   return (
-    <>
-      <Resource
-        value={resource}
-        onRejected={() => <NotFound />}
-        onResolved={(data) => (
-          <Section>
-            <h1
-              className="break-words font-stylized text-2xl leading-none md:text-3xl"
-              data-testid="category"
-            >
-              <ProjectsIcon className="mb-2 mr-2.5 text-3xl sm:mb-0" />
-              projects
-            </h1>
-            <p className="mx-auto mt-2 max-w-xl p-2 font-plain text-lg text-primary-25">
-              {JSON.stringify(data, null, 2)}
-            </p>
-          </Section>
-        )}
-      />
-    </>
+    <Resource
+      value={resource}
+      onRejected={() => <NotFound />}
+      onResolved={(project) => (
+        <div>
+          <Project>
+            <PanelTitle id="title">{project?.title}</PanelTitle>
+            <Panel>
+              <div className="py-2.5 px-5 tracking-wide">
+                <section>
+                  <DetailHeadline id="details">Details:</DetailHeadline>
+                  {project ? <FileDetails {...project} /> : null}
+                </section>
+                <section>
+                  <DetailHeadline id="description">Description:</DetailHeadline>
+                  <div className="mt-2 px-4 font-plain text-xl tracking-wide">
+                    <ContentfulRichText json={project?.description?.json} />
+                  </div>
+                </section>
+                <section>
+                  <DetailHeadline id="tech">Tech Specs:</DetailHeadline>
+                  <ul className="list-none p-2">
+                    {project?.tech
+                      ? project.tech.map((item, idx) => (
+                          <li
+                            className={clsx(
+                              'px-2 font-plain text-xl',
+                              idx % 2 ? 'bg-primary-900' : 'bg-transparent'
+                            )}
+                            key={item}
+                          >
+                            <ProjectsIcon className="mr-3 align-middle" />
+                            {item}
+                          </li>
+                        ))
+                      : null}
+                  </ul>
+                </section>
+                {project?.snapshotsCollection?.items?.length ?? 0 > 0 ? (
+                  <GalleryView snapshots={project.snapshotsCollection!.items} />
+                ) : null}
+              </div>
+            </Panel>
+          </Project>
+          <GoBack href="/projects/" title="projects" />
+        </div>
+      )}
+    />
   )
 })
 
-export const head: DocumentHead<ProjectCard> = ({ data }) => {
+export const head: DocumentHead<ProjectPage> = ({ data }) => {
   return !data
     ? {
         title: 'Project Not Found | Matt Carlotta'

@@ -25,7 +25,7 @@ export default function Image({
   const rescale = isRescaled ? `fit=scale&h=${newHeight}&w=${newWidth}` : ''
 
   return (
-    <picture data-testid="picture">
+    <picture>
       <source
         src-set={`${url}?fm=webp${isRescaled ? `&${rescale}` : ''}`}
         type="image/webp"
@@ -35,7 +35,6 @@ export default function Image({
         type={contentType}
       />
       <img
-        data-testid="image"
         src={url}
         height={newHeight}
         width={newWidth}

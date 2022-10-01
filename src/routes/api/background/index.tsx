@@ -1,14 +1,13 @@
 import { RequestHandler } from '@builder.io/qwik-city'
-import type { CONTENTFUL_PAGE_CARD } from '../../../types'
-import { getHomepageCards } from '../../../utils/contentfulApi'
+import type { CONTENTFUL_BACKGROUND_PAGE } from '../../../types'
+import { getBackground } from '../../../utils/contentfulApi'
 
-export type BackgroundCards = Array<CONTENTFUL_PAGE_CARD>
+export type BackgroundPage = CONTENTFUL_BACKGROUND_PAGE
 
-export const onGet: RequestHandler<BackgroundCards> = async ({ response }) => {
-  const res = await getHomepageCards()
+export const onGet: RequestHandler<BackgroundPage> = async ({ response }) => {
+  const res = await getBackground()
 
-  const cards: Array<CONTENTFUL_PAGE_CARD> =
-    res.data?.homepageCardCollection?.items
+  const cards: CONTENTFUL_BACKGROUND_PAGE = res.data?.background
 
   if (!cards) {
     response.status = 404

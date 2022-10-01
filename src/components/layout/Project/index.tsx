@@ -1,11 +1,7 @@
 import type { Children } from '../../../types'
 
-export type ProjectProps = Children & { dataTestId?: string }
+export type ProjectProps = Children
 
-export default function Project({ children, dataTestId }: ProjectProps) {
-  return (
-    <article className="my-8 rounded-t-xl shadow-glow" data-testid={dataTestId}>
-      {children}
-    </article>
-  )
+export default function Project({ children }: ProjectProps) {
+  return <article className="my-8 rounded-t-xl shadow-glow">{children}</article>
 }

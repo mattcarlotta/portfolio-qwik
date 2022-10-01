@@ -50,12 +50,7 @@ const CardPreview = ({
     <CardTitle id={title}>{title}</CardTitle>
     <Bars />
     <div className="flex h-[14.375rem] items-center justify-center">
-      <Link
-        dataTestId={title}
-        ariaLabel={ariaLabel}
-        href={`/${href}/${slug}`}
-        noFocusRing
-      >
+      <Link ariaLabel={ariaLabel} href={`/${href}/${slug}`} noFocusRing>
         <Image
           className="rounded"
           url={url}
@@ -71,7 +66,6 @@ const CardPreview = ({
       {Boolean(status) && (
         <Tooltip title={status}>
           <Link
-            dataTestId={`status-${title}`}
             ariaLabel={ariaLabel}
             href={`/${href}/${slug}`}
             className="mx-1 p-2"

@@ -2,9 +2,9 @@ import { RequestHandler } from '@builder.io/qwik-city'
 import type { CONTENTFUL_PROJECTS_PAGE } from '../../../../types'
 import { getProjectBySlug } from '../../../../utils/contentfulApi'
 
-export type ProjectCard = CONTENTFUL_PROJECTS_PAGE
+export type ProjectPage = CONTENTFUL_PROJECTS_PAGE
 
-export const onGet: RequestHandler<ProjectCard> = async ({
+export const onGet: RequestHandler<ProjectPage> = async ({
   params,
   response
 }) => {

@@ -21,10 +21,7 @@ export default component$(() => {
   return (
     <>
       <Section>
-        <h1
-          className="break-words font-stylized text-2xl leading-none md:text-3xl"
-          data-testid="category"
-        >
+        <h1 className="break-words font-stylized text-2xl leading-none md:text-3xl">
           <ProjectsIcon className="mb-2 mr-2.5 text-3xl sm:mb-0" />
           projects
         </h1>
@@ -37,10 +34,7 @@ export default component$(() => {
         value={resourceData}
         onRejected={(err) => <div>{String(err?.message)}</div>}
         onResolved={(projects) => (
-          <section
-            className="mb-64 mt-20 flex flex-wrap items-center justify-center"
-            data-testid="projects-page"
-          >
+          <section className="mb-48 mt-20 flex flex-wrap items-center justify-center">
             {projects.map(({ preview, seoDescription, ...rest }) => (
               <CardPreview
                 {...preview}

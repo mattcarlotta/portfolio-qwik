@@ -7,7 +7,6 @@ export default function StatusIcon({ className }: { className: string }) {
       viewBox="0 0 24 24"
       stroke-line-cap="round"
       stroke-line-join="round"
-      data-testid="fipower"
       className={className}
       height="1em"
       width="1em"
