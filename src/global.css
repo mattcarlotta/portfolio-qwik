@@ -48,6 +48,24 @@
     @apply my-3 py-1.5 font-plain;
   }
 
+  .card:hover [data-title='bar'],
+  .card:focus [data-title='bar'],
+  .card:focus-within [data-title='bar'] {
+    @apply block bg-primary-200 opacity-40;
+  }
+
+  .card:hover [data-title='card-title'],
+  .card:focus [data-title='card-title'],
+  .card:focus-within [data-title='card-title'] {
+    @apply bg-primary-25;
+  }
+
+  .galleryLink:focus [data-title='card-title'],
+  .galleryLink:focus-within [data-title='card-title'],
+  .galleryLink:hover [data-title='card-title'] {
+    @apply bg-primary-25;
+  }
+
   * {
     @apply box-border;
     -ms-overflow-style: none;

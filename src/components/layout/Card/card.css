@@ -15,22 +15,10 @@
     @apply block;
   }
 
-  .card:hover > [data-title='card-title'],
-  .card:focus > [data-title='card-title'],
-  .card:focus-within > [data-title='card-title'] {
-    @apply bg-primary-25;
-  }
-
-  .card:hover [data-title='card-container'],
-  .card:focus > [data-title='card-title'],
-  .card:focus-within > [data-title='card-title'] {
+  .card:hover > [data-title='card-container'],
+  .card:focus > [data-title='card-container'],
+  .card:focus-within > [data-title='card-container'] {
     @apply absolute top-0 left-0 w-full rounded-b border border-solid border-primary-100 bg-primary-1000 opacity-100 shadow-ring;
-  }
-
-  .card:hover > [data-title='bar'],
-  .card:focus > [data-title='bar'],
-  .card:focus-within > [data-title='bar'] {
-    @apply block bg-primary-200 opacity-40;
   }
 }
 

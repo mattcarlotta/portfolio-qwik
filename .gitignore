@@ -11,6 +11,7 @@ node_modules
 # Envs
 .env.*
 .env
+prod.json
 
 # Cache
 .cache
