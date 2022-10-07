@@ -67,7 +67,7 @@ export default component$(() => {
                   </div>
                 </Panel>
               </Project>
-              <GoBack href="/explorations" title="Explorations" />
+              <GoBack href="/explorations/" title="Explorations" />
             </>
           )}
         </div>
