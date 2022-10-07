@@ -43,6 +43,7 @@ export default component$(() => {
                 description={seoDescription}
                 href="projects"
                 alt={preview.description}
+                trailingSlash
               />
             ))}
           </section>

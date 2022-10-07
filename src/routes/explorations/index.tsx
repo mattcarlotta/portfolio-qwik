@@ -47,6 +47,7 @@ export default component$(() => {
                 source={`https://codesandbox.io/s/${sandboxId}`}
                 status="In Orbit"
                 alt={preview.description}
+                trailingSlash
               />
             ))}
           </section>

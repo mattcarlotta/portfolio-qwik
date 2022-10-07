@@ -43,14 +43,19 @@ const CardPreview = ({
   source,
   status,
   title,
+  trailingSlash = false,
   url,
   width
-}: CardPreviewProps) => (
+}: CardPreviewProps & { trailingSlash?: boolean }) => (
   <Card>
     <CardTitle id={title}>{title}</CardTitle>
     <Bars />
     <div className="flex h-[14.375rem] items-center justify-center">
-      <Link ariaLabel={ariaLabel} href={`/${href}/${slug}`} noFocusRing>
+      <Link
+        ariaLabel={ariaLabel}
+        href={`/${href}/${slug}${trailingSlash ? '/' : ''}`}
+        noFocusRing
+      >
         <Image
           className="rounded"
           url={url}
@@ -67,7 +72,7 @@ const CardPreview = ({
         <Tooltip title={status}>
           <Link
             ariaLabel={ariaLabel}
-            href={`/${href}/${slug}`}
+            href={`/${href}/${slug}${trailingSlash ? '/' : ''}`}
             className="mx-1 p-2"
           >
             <StatusIcon
@@ -104,7 +109,7 @@ const CardPreview = ({
     </div>
     <QwikLink
       className="m-2 block rounded border-2 border-solid border-transparent px-2.5 py-4 font-plain text-md transition-colors hover:text-white focus:border-primary-100 focus:text-white"
-      href={`/${href}/${slug}`}
+      href={`/${href}/${slug}${trailingSlash ? '/' : ''}`}
       prefetch={false}
     >
       {description}
