@@ -1,4 +1,4 @@
-import { $, component$, mutable, useStore } from '@builder.io/qwik'
+import { $, component$, useStore } from '@builder.io/qwik'
 import ImagesIcon from '../../../icons/ImagesIcon'
 import type { CONTENTFUL_IMAGE } from '../../../types'
 import BackgroundImageViewer from '../BackgroundImageViewer'
@@ -163,7 +163,7 @@ export default component$(
               {snapshots.map((snapshot, idx) => (
                 <SnapshotSelector
                   {...snapshot}
-                  active={mutable(store.currentIndex === idx)}
+                  active={store.currentIndex === idx}
                   aria-label={snapshot.title}
                   onClick$={() => handleSelectImage(idx)}
                 />
