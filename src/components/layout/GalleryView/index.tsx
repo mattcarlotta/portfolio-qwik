@@ -103,7 +103,7 @@ export default component$(
             ))}
           </div>
         </section>
-        <Modal id="snapshot-gallery" open={store.open}>
+        <Modal id="snapshot-gallery" open={store.open} onClose={closeModal}>
           <div className="fixed top-0 w-full">
             <div className="absolute top-5 left-5 font-plain text-2xl text-white">
               <ImagesIcon className="mr-2.5 align-middle" />
