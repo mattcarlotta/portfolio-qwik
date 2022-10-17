@@ -5,6 +5,7 @@ import BackgroundImageViewer from '../BackgroundImageViewer'
 import Button from '../Button'
 import CardTitle from '../CardTitle'
 import DetailHeadline from '../DetailHeadline'
+import GalleryButton from '../GalleryButton'
 import Image from '../Image'
 import Modal from '../Modal'
 import SnapshotSelector from '../SnapshotSelector'
@@ -79,13 +80,9 @@ export default component$(
       <>
         <section>
           <DetailHeadline id="snapshots">Snapshots:</DetailHeadline>
-          <div className="my-4 flex flex-wrap items-center justify-center px-2.5">
+          <div className="flex flex-wrap items-center justify-center px-2.5 my-4">
             {snapshots.map(({ title, ...rest }, idx) => (
-              <div
-                class={{
-                  galleryLink: true
-                }}
-                role="button"
+              <GalleryButton
                 onClick$={() => handleSelectImage(idx)}
                 onKeyDown$={(event) => {
                   if (event.key === 'Enter') {
@@ -93,9 +90,7 @@ export default component$(
                     handleSelectImage(idx)
                   }
                 }}
-                aria-label={rest.description}
-                // @ts-ignore
-                tabindex={0}
+                ariaLabel={rest.description}
               >
                 <CardTitle id={title}>{title}</CardTitle>
                 <Image
@@ -104,11 +99,11 @@ export default component$(
                   alt={rest.description}
                   {...rest}
                 />
-              </div>
+              </GalleryButton>
             ))}
           </div>
         </section>
-        <Modal id="test" open={store.open}>
+        <Modal id="snapshot-gallery" open={store.open}>
           <div className="fixed top-0 w-full">
             <div className="absolute top-5 left-5 font-plain text-2xl text-white">
               <ImagesIcon className="mr-2.5 align-middle" />
