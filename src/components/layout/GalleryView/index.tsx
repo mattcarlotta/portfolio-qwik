@@ -22,7 +22,7 @@ export default component$(
       open: false
     })
 
-    const snapshot = snapshots[store.currentIndex] ?? {}
+    const snapshot = snapshots[store.currentIndex] || {}
     const snapsLength = snapshots.length
 
     const closeModal = $(() => {
