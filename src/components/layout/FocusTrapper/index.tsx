@@ -83,7 +83,7 @@ export default component$(({ className, onEscapePress }: FocusTrapperProps) => {
   })
 
   useClientEffect$(({ track }) => {
-    track(store, 'tabIndex')
+    track(() => store.tabIndex)
 
     if (store.tabbableItems.length > 0) {
       store.tabbableItems[store.tabIndex]?.focus()

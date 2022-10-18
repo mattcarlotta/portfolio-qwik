@@ -13,57 +13,36 @@ import SnapshotSelector from '../SnapshotSelector'
 export type ModalDialogState = {
   currentIndex: number
   open: boolean
-  image: {
-    height: number
-    width: number
-    contentType: string
-    description: string
-    title: string
-    url: string
-  }
 }
 
 export default component$(
   ({ snapshots }: { snapshots: Array<CONTENTFUL_IMAGE> }) => {
-    const initialStoreImage = {
-      url: '',
-      description: '',
-      contentType: '',
-      height: 0,
-      width: 0,
-      title: ''
-    }
     const store = useStore<ModalDialogState>({
       currentIndex: 0,
-      open: false,
-      image: initialStoreImage
+      open: false
     })
 
+    const snapshot = snapshots[store.currentIndex] ?? {}
     const snapsLength = snapshots.length
 
     const closeModal = $(() => {
-      store.currentIndex = 0
       store.open = false
-      store.image = initialStoreImage
+      store.currentIndex = 0
     })
 
     const handleSelectImage = $((idx: number) => {
-      const image = snapshots[idx]
       store.open = true
       store.currentIndex = idx
-      store.image = image
     })
 
     const handleNextImage = $(() => {
       const nextIndex = store.currentIndex + 1
-      const currentIndex = nextIndex <= snapsLength - 1 ? nextIndex : 0
-      handleSelectImage(currentIndex)
+      handleSelectImage(nextIndex <= snapsLength - 1 ? nextIndex : 0)
     })
 
     const handlePrevImage = $(() => {
       const prevIndex = store.currentIndex - 1
-      const currentIndex = prevIndex < 0 ? snapsLength - 1 : prevIndex
-      handleSelectImage(currentIndex)
+      handleSelectImage(prevIndex < 0 ? snapsLength - 1 : prevIndex)
     })
 
     const handleKeyDown = $((event: KeyboardEvent) => {
@@ -115,7 +94,7 @@ export default component$(
               id="modal-title"
               data-testid="modal-title"
             >
-              {store.image.title}
+              {snapshot.title}
             </h2>
             <button
               aria-label="close modal"
@@ -138,7 +117,7 @@ export default component$(
             </Button>
           </div>
           <div className="fixed bottom-24 left-20 right-20 top-20">
-            <BackgroundImageViewer src={store.image.url} />
+            <BackgroundImageViewer src={snapshot.url} />
           </div>
           <div className="fixed right-1 top-[calc(50%-35px)]">
             <Button
@@ -154,17 +133,16 @@ export default component$(
             <div
               data-testid="gallery-preview"
               role="listbox"
-              aria-activedescendant={`button-preview-${store.image.title}`}
-              aria-labelledby={`button-preview-${store.image.title}`}
+              aria-activedescendant={`button-preview-${snapshot.title}`}
+              aria-labelledby={`button-preview-${snapshot.title}`}
               tabIndex={snapsLength <= 1 ? -1 : 0}
               onKeyDown$={handleKeyDown}
               className="overflow-y-auto whitespace-nowrap text-center"
             >
-              {snapshots.map((snapshot, idx) => (
+              {snapshots.map((snap, idx) => (
                 <SnapshotSelector
-                  {...snapshot}
+                  {...snap}
                   active={store.currentIndex === idx}
-                  aria-label={snapshot.title}
                   onClick$={() => handleSelectImage(idx)}
                 />
               ))}
