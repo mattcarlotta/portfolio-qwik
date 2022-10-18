@@ -1,7 +1,10 @@
 {
   "name": "portfolio-qwik",
-  "description": "My portfolio developed in qwik",
-  "private": true,
+  "description": "My personal website made blazingly fast using Qwik",
+  "repository": "https://github.com/mattcarlotta/portfolio-qwik",
+  "author": "Matt Carlotta",
+  "license": "MIT",
+  "private": false,
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
   },
